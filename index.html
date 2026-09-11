@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dent-Care - Dental Hospital Management System</title>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- App Stylesheets -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/odontogram.css" />
+  <link rel="stylesheet" href="css/lab-kanban.css" />
+</head>
+<body class="sim-device-desktop">
+
+  <div id="app-container">
+    <!-- TOP SIMULATOR TOOLBAR -->
+    <div class="simulator-toolbar">
+      <div class="sim-group">
+        <label><i data-lucide="sliders" style="width:14px; height:14px; vertical-align:middle;"></i> Dynamic Permission Switcher:</label>
+        
+        <select id="sim-user-select" title="Switch User Persona">
+          <option value="usr_101">Dr. Rahul Sharma (Dentist)</option>
+          <option value="usr_102">Dr. Priya Patel (Endodontist)</option>
+          <option value="usr_103">Sarah Jenkins (Receptionist)</option>
+          <option value="usr_104">Mark Vance (Admin)</option>
+        </select>
+
+        <select id="sim-device-select" title="Switch Device Type">
+          <option value="desktop">Desktop Workstation</option>
+          <option value="tablet">Clinical Tablet</option>
+          <option value="mobile">Mobile Device</option>
+        </select>
+      </div>
+
+      <div class="sim-group">
+        <span class="device-badge" id="sim-active-rule-badge">
+          <i data-lucide="shield"></i> Security Policy Active
+        </span>
+      </div>
+    </div>
+
+    <!-- MAIN APP WORKSPACE -->
+    <div class="main-wrapper">
+      <!-- SIDEBAR CONTAINER -->
+      <aside id="sidebar-container"></aside>
+
+      <!-- CONTENT AREA -->
+      <div class="content-area">
+        <!-- TOPBAR HEADER -->
+        <header id="topbar-container"></header>
+
+        <!-- MAIN DYNAMIC VIEW -->
+        <main id="view-container"></main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+/* DENTAL HOSPITAL MANAGEMENT SYSTEM - PINK ODONTOGRAM CSS */
+
+.odontogram-wrapper {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.odontogram-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.condition-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.dot-caries { background: #f43f5e; color: #f43f5e; }
+.dot-filling { background: #ec4899; color: #ec4899; }
+.dot-crown { background: #fbbf24; color: #fbbf24; }
+.dot-rootcanal { background: #c084fc; color: #c084fc; }
+.dot-missing { background: #64748b; color: #64748b; }
+.dot-implant { background: #34d399; color: #34d399; }
+
+.arch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.arch-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ec4899;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.teeth-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 0.4rem;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.tooth-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.4rem 0.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tooth-item:hover {
+  background: rgba(236, 72, 153, 0.2);
+  border-color: rgba(236, 72, 153, 0.5);
+  transform: translateY(-3px);
+}
+
+.tooth-item.selected {
+  background: rgba(236, 72, 153, 0.3);
+  border-color: #ec4899;
+  box-shadow: 0 0 18px rgba(236, 72, 153, 0.4);
+}
+
+.tooth-number {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+.tooth-svg-box {
+  width: 44px;
+  height: 60px;
+  position: relative;
+}
+
+.tooth-surface {
+  fill: #2e1026;
+  stroke: #702058;
+  stroke-width: 1.25;
+  transition: fill 0.2s ease;
+}
+
+.tooth-surface:hover {
+  fill: #4a153c;
+}
+
+/* Applied pink condition overlays */
+.tooth-item[data-condition="caries"] .tooth-surface { fill: rgba(244, 63, 94, 0.35); stroke: #f43f5e; }
+.tooth-item[data-condition="filling"] .tooth-surface { fill: rgba(236, 72, 153, 0.35); stroke: #ec4899; }
+.tooth-item[data-condition="crown"] .tooth-surface { fill: rgba(251, 191, 36, 0.35); stroke: #fbbf24; }
+.tooth-item[data-condition="rootcanal"] .tooth-surface { fill: rgba(192, 132, 252, 0.35); stroke: #c084fc; }
+.tooth-item[data-condition="missing"] { opacity: 0.3; }
+.tooth-item[data-condition="implant"] .tooth-surface { fill: rgba(52, 211, 153, 0.35); stroke: #34d399; }
+
+.tooth-condition-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 0.1rem 0.3rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* TOOTH DETAIL DRAWER / MODAL */
+.tooth-header-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #180814;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+}
+
+.tooth-big-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ec4899;
+  font-family: var(--font-heading);
+}
+
+.condition-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.condition-btn {
+  padding: 0.55rem;
+  background: #2e1026;
+  color: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.condition-btn:hover { background: #4a153c; border-color: #ec4899; }
+.condition-btn.active { background: linear-gradient(135deg, #ec4899, #f43f5e); color: #ffffff; border-color: #ec4899; box-shadow: 0 0 12px rgba(236, 72, 153, 0.5); }
