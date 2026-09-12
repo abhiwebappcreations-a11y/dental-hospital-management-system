@@ -11,6 +11,7 @@ import {
   INITIAL_INVENTORY,
   INITIAL_AUDIT_LOGS
 } from './mockData.js';
+import { syncPatientToSupabase, deletePatientFromSupabase, syncAuditLogToSupabase } from './supabaseClient.js';
 
 class Store {
   constructor() {
@@ -131,6 +132,7 @@ class Store {
     this.auditLogs.unshift(newLog);
     if (this.auditLogs.length > 100) this.auditLogs.pop();
     this.saveToStorage('dhms_audit_logs', this.auditLogs);
+    syncAuditLogToSupabase(newLog);
   }
 
   // TOAST NOTIFICATIONS
@@ -163,6 +165,7 @@ class Store {
     };
     this.patients.unshift(newPatient);
     this.saveToStorage('dhms_patients', this.patients);
+    syncPatientToSupabase(newPatient);
     this.logAudit('Add Patient', `Created new patient record: ${newPatient.name} (${newPatient.id})`, 'patients');
     this.addToast('Patient Added', `${newPatient.name} added successfully!`, 'success');
     this.notify();
@@ -179,6 +182,7 @@ class Store {
     const p = this.patients.find(x => x.id === patientId);
     this.patients = this.patients.filter(x => x.id !== patientId);
     this.saveToStorage('dhms_patients', this.patients);
+    deletePatientFromSupabase(patientId);
     this.logAudit('Delete Patient', `Deleted patient record: ${p?.name || patientId}`, 'patients');
     this.addToast('Patient Deleted', `Patient ${patientId} deleted.`, 'warning');
     this.notify();
