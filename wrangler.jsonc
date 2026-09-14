@@ -5,7 +5,10 @@
   "assets": {
     "directory": ".",
     "exclude": [
+      "node_modules",
       "node_modules/**",
+      "**/node_modules/**",
+      ".git",
       ".git/**",
       "*.log",
       ".env*"
