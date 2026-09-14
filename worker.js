@@ -1,6 +1,12 @@
 export default {
-  async fetch(request, env) {
-    // Serve static assets via Cloudflare Assets routing
-    return env.ASSETS.fetch(request);
+  async fetch(request, env, ctx) {
+    try {
+      if (env && env.ASSETS) {
+        return await env.ASSETS.fetch(request);
+      }
+      return await fetch(request);
+    } catch (err) {
+      return new Response("Resource not found", { status: 404 });
+    }
   }
 };
