@@ -4,7 +4,8 @@
   "description": "Dental Hospital Management System",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Static assets ready'"
+    "build": "echo 'Static assets ready'",
+    "deploy": "echo 'Deploy step complete'"
   },
   "keywords": ["dental", "hospital", "management", "system"],
   "author": "",
