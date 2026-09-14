@@ -16,17 +16,17 @@ Welcome to the **Dental Hospital Management System (DHMS)** user manual. This do
 8. [Digital X-Rays & Imaging Vault](#8-digital-x-rays--imaging-vault)
 9. [Billing, Invoicing & Receipts](#9-billing-invoicing--receipts)
 10. [Access Control (RBAC) & Compliance Audit Logs](#10-access-control-rbac--compliance-audit-logs)
-11. [Supabase Cloud Synchronization & Local Storage](#11-supabase-cloud-synchronization--local-storage)
-12. [Cloudflare Pages Deployment Guide](#12-cloudflare-pages-deployment-guide)
+11. [Local Storage Persistence & Data Privacy](#11-local-storage-persistence--data-privacy)
+12. [Vercel Deployment & Hosting Guide](#12-vercel-deployment--hosting-guide)
 
 ---
 
 ## 1. Overview & Navigation
 
 The DHMS interface consists of three primary regions:
-- **Top Bar**: Displays the hospital logo, active clinic location, live connectivity status (Local / Supabase Cloud), search bar, and active user profile.
+- **Top Bar**: Displays the hospital logo, active clinic location, search bar, and active user profile.
 - **Sidebar Menu**: Quick navigation between all 9 operational modules (Dashboard, Patients, Odontogram, Appointments, Consultations, Lab Cases, X-Rays, Billing, Access Control).
-- **Simulator / Admin Toolbar**: Positioned at the top of the screen to simulate user roles, device viewports (Desktop, Tablet, Mobile), and configure cloud credentials.
+- **Simulator / Admin Toolbar**: Positioned at the top of the screen to simulate user roles and device viewports (Desktop, Tablet, Mobile).
 
 ---
 
@@ -41,8 +41,6 @@ DHMS includes built-in Role-Based Access Control (RBAC). You can switch user per
    - **Dr. Robert Vance** (Practice Manager): Analytics, lab billing, user permission configuration.
 2. **Device Viewport Simulator** (`sim-device-select`):
    - Toggle between **Desktop**, **Tablet**, and **Mobile** views to preview how the layout adjusts responsively.
-3. **Supabase Cloud Configuration Button**:
-   - Opens the database setup modal to connect a live Supabase PostgreSQL database.
 
 ---
 
@@ -182,59 +180,46 @@ Track custom dental restorations sent to external commercial dental laboratories
 
 ---
 
-## 11. Supabase Cloud Synchronization & Local Storage
+## 11. Local Storage Persistence & Data Privacy
 
-DHMS operates seamlessly offline using browser **LocalStorage** by default. To sync data across multiple clinic computers or devices in real time:
+DHMS operates with client-side **LocalStorage** persistence. All clinical records, odontogram charting, appointments, lab orders, invoices, and audit logs are safely persisted inside the browser sandbox without requiring external cloud databases:
 
-1. Click **Supabase Config** in the top simulator bar.
-2. Enter your **Supabase URL** and **Anon API Key**.
-3. Execute [`supabase-schema.sql`](file:///c:/Users/Ratna%20Prasad/Desktop/dental%20hospital%20managrement%20system/supabase-schema.sql) in your Supabase SQL Editor.
-4. Click **Save Credentials & Connect**.
-
----
-
-## 12. Cloudflare Pages & Workers Deployment & Troubleshooting Guide
-
-### Why You Might Not Get a URL or Why the Page Doesn't Open Properly
-
-If you tried deploying and did **not get a URL** or the URL **opened to a blank page / error**, here are the common causes and solutions:
-
-#### 1. Command Line Authentication Issue (No URL output)
-When deploying via CLI (`npx wrangler deploy` or `npx wrangler pages deploy`), Wrangler requires active login credentials.
-- **Fix**: Run `npx wrangler login` in your terminal first to authenticate with Cloudflare in your web browser. Once authorized, re-run `npx wrangler pages deploy .`.
-
-#### 2. Blank Screen / MIME Type / 404 Errors on Deployed URL
-When hosting single-page web apps with JavaScript ES modules (`type="module"`), static asset routers can block nested paths or respond with HTML (causing `Unexpected token '<'` errors).
-- **Fix**: We have configured `wrangler.jsonc` with `"html_handling": "single-page-app"` and `"not_found_handling": "single-page-app"`, as well as file exclusions (`.git`, `node_modules`, etc.).
+- Data persists automatically across browser refreshes and session restarts.
+- Immediate offline responsiveness without external backend latencies.
+- Role-based permissions and audit logs remain fully operational locally.
 
 ---
 
-### Step-by-Step Deployment Methods
+## 12. Vercel Deployment & Hosting Guide
 
-#### Method A: Deploying via Cloudflare Dashboard (Recommended - 100% Reliable & Automatic URL)
-1. Push your repository to **GitHub**.
-2. Log into the [Cloudflare Dashboard](https://dash.cloudflare.com/).
-3. Navigate to **Workers & Pages** ➔ **Create application** ➔ **Pages** tab ➔ **Connect to Git**.
-4. Select your `dental-hospital-management-system` repository.
-5. In build settings:
-   - **Framework preset**: *None*
-   - **Build command**: *(leave blank or `npm run build`)*
-   - **Build output directory**: `/`
-6. Click **Save and Deploy**.
-7. Cloudflare will automatically generate your live public URL: `https://<your-project>.pages.dev`.
+The project is structured for **Vercel Hosting**. A pre-configured `vercel.json` file is included in the project root to ensure single-page application (SPA) routing, clean URLs, and security headers.
 
-#### Method B: Deploying via Terminal (Wrangler CLI)
-1. Log in to Cloudflare CLI:
+### Option A: Deploying via Vercel Dashboard (Recommended - 100% Automatic)
+
+1. Push your repository to **GitHub**, **GitLab**, or **Bitbucket**.
+2. Log into the [Vercel Dashboard](https://vercel.com/dashboard).
+3. Click **Add New...** ➔ **Project**.
+4. Import your `dental-hospital-management-system` repository.
+5. In project configuration:
+   - **Framework Preset**: *Other*
+   - **Root Directory**: `./`
+   - **Build Command**: `npm run build` *(or leave default)*
+   - **Output Directory**: `./`
+6. Click **Deploy**.
+7. Vercel will generate your live SSL-enabled public URL (e.g. `https://dental-hospital-management-system.vercel.app`).
+
+### Option B: Deploying via Terminal (Vercel CLI)
+
+1. Deploy directly from your terminal:
    ```bash
-   npx wrangler login
+   npx vercel
    ```
-2. Deploy to Cloudflare Pages:
+2. Follow the interactive prompts (select your scope and confirm root path `./`).
+3. To deploy directly to production:
    ```bash
-   npx wrangler pages deploy . --project-name=dental-hospital-management-system
+   npm run deploy
    ```
-   *(Or for Cloudflare Workers Assets: `npx wrangler deploy`)*
-3. The terminal will display your live deployment URL at the end of the upload process:
-   `✨ Deployment complete! Take a look: https://dental-hospital-management-system.pages.dev`
+4. The terminal will print your live deployment URL upon completion.
 
 ---
-*Dental Hospital Management System v2.5 — Built for modern dental practices.*
+*Dental Hospital Management System v2.5 — Optimized for Vercel Deployment.*
