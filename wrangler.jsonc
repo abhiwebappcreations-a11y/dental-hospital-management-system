@@ -1,16 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "dental-hospital-management-system",
-  "main": "worker.js",
   "compatibility_date": "2026-09-11",
   "assets": {
-    "directory": ".",
-    "binding": "ASSETS",
-    "exclude": [
-      "node_modules/**",
-      ".git/**",
-      "*.log",
-      ".env*"
-    ]
+    "directory": "."
   }
 }
