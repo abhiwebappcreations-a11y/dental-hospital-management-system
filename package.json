@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "build": "echo 'Static assets ready'",
-    "deploy": "echo 'Deploy step complete'"
+    "deploy": "echo 'Deploy step complete'",
+    "version": "echo 'Version step complete'"
   },
   "keywords": ["dental", "hospital", "management", "system"],
   "author": "",
