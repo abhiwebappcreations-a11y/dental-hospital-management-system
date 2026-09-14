@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "build": "echo 'Static assets ready'",
-    "deploy": "echo 'Deploy step complete'",
+    "deploy": "npx wrangler deploy",
     "version": "echo 'Version step complete'"
   },
   "keywords": ["dental", "hospital", "management", "system"],
