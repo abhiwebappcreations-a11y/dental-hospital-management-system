@@ -193,16 +193,48 @@ DHMS operates seamlessly offline using browser **LocalStorage** by default. To s
 
 ---
 
-## 12. Cloudflare Pages Deployment Guide
+## 12. Cloudflare Pages & Workers Deployment & Troubleshooting Guide
 
-To deploy DHMS to Cloudflare Pages for free global hosting:
+### Why You Might Not Get a URL or Why the Page Doesn't Open Properly
 
-1. **GitHub Deploy**:
-   - Push codebase to GitHub.
-   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) ➔ **Workers & Pages** ➔ **Create application** ➔ **Pages** ➔ **Connect to Git**.
-   - Select repo, set output directory to `/`, and click **Deploy**.
-2. **Direct Upload**:
-   - Drag and drop your project directory into **Cloudflare Pages** direct upload tool.
+If you tried deploying and did **not get a URL** or the URL **opened to a blank page / error**, here are the common causes and solutions:
+
+#### 1. Command Line Authentication Issue (No URL output)
+When deploying via CLI (`npx wrangler deploy` or `npx wrangler pages deploy`), Wrangler requires active login credentials.
+- **Fix**: Run `npx wrangler login` in your terminal first to authenticate with Cloudflare in your web browser. Once authorized, re-run `npx wrangler pages deploy .`.
+
+#### 2. Blank Screen / MIME Type / 404 Errors on Deployed URL
+When hosting single-page web apps with JavaScript ES modules (`type="module"`), static asset routers can block nested paths or respond with HTML (causing `Unexpected token '<'` errors).
+- **Fix**: We have configured `wrangler.jsonc` with `"html_handling": "single-page-app"` and `"not_found_handling": "single-page-app"`, as well as file exclusions (`.git`, `node_modules`, etc.).
+
+---
+
+### Step-by-Step Deployment Methods
+
+#### Method A: Deploying via Cloudflare Dashboard (Recommended - 100% Reliable & Automatic URL)
+1. Push your repository to **GitHub**.
+2. Log into the [Cloudflare Dashboard](https://dash.cloudflare.com/).
+3. Navigate to **Workers & Pages** ➔ **Create application** ➔ **Pages** tab ➔ **Connect to Git**.
+4. Select your `dental-hospital-management-system` repository.
+5. In build settings:
+   - **Framework preset**: *None*
+   - **Build command**: *(leave blank or `npm run build`)*
+   - **Build output directory**: `/`
+6. Click **Save and Deploy**.
+7. Cloudflare will automatically generate your live public URL: `https://<your-project>.pages.dev`.
+
+#### Method B: Deploying via Terminal (Wrangler CLI)
+1. Log in to Cloudflare CLI:
+   ```bash
+   npx wrangler login
+   ```
+2. Deploy to Cloudflare Pages:
+   ```bash
+   npx wrangler pages deploy . --project-name=dental-hospital-management-system
+   ```
+   *(Or for Cloudflare Workers Assets: `npx wrangler deploy`)*
+3. The terminal will display your live deployment URL at the end of the upload process:
+   `✨ Deployment complete! Take a look: https://dental-hospital-management-system.pages.dev`
 
 ---
 *Dental Hospital Management System v2.5 — Built for modern dental practices.*

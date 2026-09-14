@@ -3,6 +3,18 @@
   "name": "dental-hospital-management-system",
   "compatibility_date": "2026-09-11",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "html_handling": "single-page-app",
+    "not_found_handling": "single-page-app",
+    "exclude": [
+      ".git/**",
+      ".gitignore",
+      "node_modules/**",
+      "package.json",
+      "package-lock.json",
+      "USER_MANUAL.md",
+      "supabase-schema.sql"
+    ]
   }
 }
+
